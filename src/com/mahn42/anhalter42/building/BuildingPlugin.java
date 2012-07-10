@@ -18,6 +18,7 @@ public class BuildingPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new BuildingListener(), this);
+        
     }
 
     @Override
