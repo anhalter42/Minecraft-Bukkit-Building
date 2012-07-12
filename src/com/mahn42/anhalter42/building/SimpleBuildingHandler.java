@@ -5,6 +5,7 @@
 package com.mahn42.anhalter42.building;
 
 import com.mahn42.framework.Building;
+import com.mahn42.framework.BuildingDB;
 import com.mahn42.framework.BuildingHandlerBase;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -47,5 +48,10 @@ public class SimpleBuildingHandler extends BuildingHandlerBase {
             lFound = true;
         }
         return lFound;
+    }
+
+    @Override
+    public BuildingDB getDB(World aWorld) {
+        return plugin.DBs.getDB(aWorld);
     }
 }

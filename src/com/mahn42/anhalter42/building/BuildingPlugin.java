@@ -66,20 +66,7 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(Material.SIGN);
         lBDesc.materials.add(Material.SIGN_POST);
         lBDesc.materials.add(Material.WALL_SIGN);
-
-        lDesc = lDetector.newDescription("Building.BuildingLeaveDetector");
-        lDesc.handler = lHandler;
-        lBDesc = lDesc.newBlockDescription("base");
-        lBDesc.materials.add(Material.BRICK);
-        lBDesc.detectSensible = true;
-        lRel = lBDesc.newRelatedTo("lever", BuildingDescription.RelatedPosition.Nearby, 1);
-        lRel = lBDesc.newRelatedTo("sign", BuildingDescription.RelatedPosition.Nearby, 1);
-        lBDesc = lDesc.newBlockDescription("lever");
-        lBDesc.materials.add(Material.LEVER);
-        lBDesc = lDesc.newBlockDescription("sign");
-        lBDesc.materials.add(Material.SIGN);
-        lBDesc.materials.add(Material.SIGN_POST);
-        lBDesc.materials.add(Material.WALL_SIGN);
+        lDesc.activate();
     }
 
     @Override
