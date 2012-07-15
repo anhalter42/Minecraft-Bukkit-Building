@@ -14,6 +14,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
 /**
  *
@@ -54,6 +55,7 @@ public class BuildingPlugin extends JavaPlugin {
         BuildingDescription.RelatedTo lRel;
         
         lDesc = lDetector.newDescription("Building.BuildingEntryDetector");
+        lDesc.typeName = "Building Enter/Leave Detector";
         lDesc.handler = lHandler;
         lBDesc = lDesc.newBlockDescription("base");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
@@ -67,6 +69,56 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(Material.SIGN_POST);
         lBDesc.materials.add(Material.WALL_SIGN);
         lDesc.activate();
+   
+        lDesc = lDetector.newDescription("Building.Pyramid.Sandstone");
+        lDesc.handler = lHandler;
+        lDesc.typeName = "Pyramid";
+        lBDesc = lDesc.newBlockDescription("top");
+        lBDesc.materials.add(Material.SANDSTONE);
+        lBDesc.detectSensible = true;
+        lRel = lBDesc.newRelatedTo(new Vector( 80,-80, 80), "ground1");
+        lRel.materials.add(Material.SANDSTONE);
+        lRel.minDistance = 1;
+        lRel = lBDesc.newRelatedTo(new Vector( 80,-80,-80), "ground2");
+        lRel.materials.add(Material.SANDSTONE);
+        lRel.minDistance = 1;
+        lRel = lBDesc.newRelatedTo(new Vector(-80,-80, 80), "ground3");
+        lRel.materials.add(Material.SANDSTONE);
+        lRel.minDistance = 1;
+        lRel = lBDesc.newRelatedTo(new Vector(-80,-80,-80), "ground4");
+        lRel.materials.add(Material.SANDSTONE);
+        lRel.minDistance = 1;
+        lBDesc = lDesc.newBlockDescription("ground1");
+        lBDesc.materials.add(Material.SANDSTONE);
+        lBDesc = lDesc.newBlockDescription("ground2");
+        lBDesc.materials.add(Material.SANDSTONE);
+        lBDesc = lDesc.newBlockDescription("ground3");
+        lBDesc.materials.add(Material.SANDSTONE);
+        lBDesc = lDesc.newBlockDescription("ground4");
+        lBDesc.materials.add(Material.SANDSTONE);
+        lDesc.activate();
+        
+        lDesc = lDetector.newDescription("Building.Bedroom");
+        BuildingDescription.BlockMaterialArray lMats = lDesc.newBlockMaterialArray();
+        lMats.add(Material.SMOOTH_BRICK);
+        lMats.add(Material.BRICK);
+        lMats.add(Material.WOOD);
+        lMats.add(Material.WOOL);
+        lDesc.handler = lHandler;
+        lDesc.typeName = "Bedroom";
+        lBDesc = lDesc.newBlockDescription("ground_e1");
+        lBDesc.materials.add(lMats);
+        lBDesc.detectSensible = true;
+        lRel = lBDesc.newRelatedTo(new Vector(20,0,20), "ground_e3", BuildingDescription.RelatedPosition.AreaXZ);
+        lRel.materials.add(lMats);
+        lRel = lBDesc.newRelatedTo(new Vector(20, 0, 0), "ground_e2");
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 20), "ground_e4");
+        lBDesc = lDesc.newBlockDescription("ground_e2");
+        lBDesc.materials.add(lMats);
+        lBDesc = lDesc.newBlockDescription("ground_e3");
+        lBDesc.materials.add(lMats);
+        lBDesc = lDesc.newBlockDescription("ground_e4");
+        lBDesc.materials.add(lMats);
     }
 
     @Override

@@ -20,21 +20,27 @@ public class BuildingListener implements Listener {
     
     @EventHandler
     public void buildingChanged(BuildingEvent aEvent) {
-        Logger.getLogger("BuildingListener").info("building " + aEvent.getBuilding().getName() + " has " + aEvent.getAction());
+        //Logger.getLogger("BuildingListener").info("building " + aEvent.getBuilding().getName() + " has " + aEvent.getAction());
         Building lEventBuilding = aEvent.getBuilding();
+        BuildingEvent.BuildingAction lAction = aEvent.getAction();
         if (lEventBuilding.name != null && !lEventBuilding.name.isEmpty()) {
-            if (aEvent.getAction() == BuildingEvent.BuildingAction.PlayerEnter
-                    || aEvent.getAction() == BuildingEvent.BuildingAction.PlayerLeave) {
+            if (lAction == BuildingEvent.BuildingAction.PlayerEnter
+                    || lAction == BuildingEvent.BuildingAction.PlayerLeave) {
                 SimpleBuildingDB lDB = BuildingPlugin.plugin.DBs.getDB(lEventBuilding.world);
                 for(SimpleBuilding lBuilding : lDB) {
                     if (lBuilding.description.name.equals("Building.BuildingEntryDetector")) {
                         Block lBlock = lBuilding.getBlock("sign").position.getBlock(lDB.world);
                         Sign lSign = (Sign)lBlock.getState();
                         String lName = lSign.getLine(0);
-                        if (lName.equals(aEvent.getBuilding().name)) {
+                        String lLine2 = lSign.getLine(1);
+                        if (lName.equals(aEvent.getBuilding().name)
+                                && (lLine2.isEmpty()
+                                || (lLine2.equalsIgnoreCase("enter") && lAction == BuildingEvent.BuildingAction.PlayerEnter)
+                                || (lLine2.equalsIgnoreCase("leave") && lAction == BuildingEvent.BuildingAction.PlayerLeave)
+                                )) {
                             lBlock = lBuilding.getBlock("lever").position.getBlock(lDB.world);
                             lBlock.setData((byte)(lBlock.getData() ^ 8), true);
-                            Logger.getLogger("BuildingListener").info("sig found");
+                            //Logger.getLogger("BuildingListener").info("sig found");
                         }
                     }
                 }
