@@ -98,7 +98,91 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(Material.SANDSTONE);
         lDesc.activate();
         
-        lDesc = lDetector.newDescription("Building.Bedroom");
+        lDesc = lDetector.newDescription("Building.BoatRailStation");
+        lDesc.handler = lHandler;
+        lDesc.typeName = "BoatRailStation";
+        lBDesc = lDesc.newBlockDescription("railblock");
+        lBDesc.materials.add(Material.COBBLESTONE_STAIRS);
+        lBDesc.materials.add(Material.SMOOTH_STAIRS);
+        lBDesc.materials.add(Material.WOOD_STAIRS);
+        lBDesc.materials.add(Material.BRICK_STAIRS);
+        lBDesc.detectSensible = true;
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 1), "rail_water");
+        lRel = lBDesc.newRelatedTo(new Vector(-3, 0, 0), "wall_left_ground");
+        lRel = lBDesc.newRelatedTo(new Vector(3, 0, 0), "wall_right_ground");
+        lBDesc = lDesc.newBlockDescription("rail_water");
+        lBDesc.materials.add(Material.RAILS);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 3), "rail_land");
+        lRel.materials.add(Material.RAILS);
+        lBDesc = lDesc.newBlockDescription("rail_land");
+        lBDesc.materials.add(Material.RAILS);
+        lBDesc = lDesc.newBlockDescription("wall_left_ground");
+        lBDesc.materials.add(Material.BRICK);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 3, 0), "wall_left_top");
+        lRel.materials.add(Material.BRICK);
+        lRel = lBDesc.newRelatedTo(new Vector(0,-1,-1), "runway_left");
+        lBDesc = lDesc.newBlockDescription("wall_right_ground");
+        lBDesc.materials.add(Material.BRICK);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 3, 0), "wall_right_top");
+        lRel.materials.add(Material.BRICK);
+        lRel = lBDesc.newRelatedTo(new Vector(0,-1,-1), "runway_right");
+        lBDesc = lDesc.newBlockDescription("wall_left_top");
+        lBDesc.materials.add(Material.BRICK);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 3), "wall_left_top_land");
+        lRel.materials.add(Material.BRICK);
+        lBDesc = lDesc.newBlockDescription("wall_right_top");
+        lBDesc.materials.add(Material.BRICK);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 3), "wall_right_top_land");
+        lRel.materials.add(Material.BRICK);
+        lBDesc = lDesc.newBlockDescription("wall_left_top_land");
+        lBDesc.materials.add(Material.BRICK);
+        lBDesc = lDesc.newBlockDescription("wall_right_top_land");
+        lBDesc.materials.add(Material.BRICK);
+        lBDesc = lDesc.newBlockDescription("runway_left");
+        lBDesc.materials.add(Material.WOOD);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0,-4), "runway_left_see");
+        lRel.materials.add(Material.WOOD);
+        lBDesc = lDesc.newBlockDescription("runway_right");
+        lBDesc.materials.add(Material.WOOD);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0,-4), "runway_right_see");
+        lRel.materials.add(Material.WOOD);
+        lBDesc = lDesc.newBlockDescription("runway_left_see");
+        lBDesc.materials.add(Material.WOOD);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 1, 0), "runway_left_bar");
+        lBDesc = lDesc.newBlockDescription("runway_right_see");
+        lBDesc.materials.add(Material.WOOD);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 1, 0), "runway_right_bar");
+        lBDesc = lDesc.newBlockDescription("runway_left_bar");
+        lBDesc.materials.add(Material.FENCE);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 3, 0), "runway_left_bar_top");
+        lRel.materials.add(Material.FENCE);
+        lBDesc = lDesc.newBlockDescription("runway_right_bar");
+        lBDesc.materials.add(Material.FENCE);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 3, 0), "runway_right_bar_top");
+        lRel.materials.add(Material.FENCE);
+        lBDesc = lDesc.newBlockDescription("runway_left_bar_top");
+        lBDesc.materials.add(Material.FENCE);
+        //lRel = lBDesc.newRelatedTo(new Vector(0, 1, 0), "ceiling_left_see");
+        lBDesc = lDesc.newBlockDescription("runway_right_bar_top");
+        lBDesc.materials.add(Material.FENCE);
+        /*
+        lRel = lBDesc.newRelatedTo(new Vector(0, 1, 0), "ceiling_right_see");
+        lBDesc = lDesc.newBlockDescription("ceiling_left_see");
+        lBDesc.materials.add(Material.STEP);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 7), "ceiling_left_land");
+        lRel.materials.add(Material.STEP);
+        lBDesc = lDesc.newBlockDescription("ceiling_right_see");
+        lBDesc.materials.add(Material.STEP);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 7), "ceiling_right_land");
+        lRel.materials.add(Material.STEP);
+        lBDesc = lDesc.newBlockDescription("ceiling_left_land");
+        lBDesc.materials.add(Material.STEP);
+        lBDesc = lDesc.newBlockDescription("ceiling_right_land");
+        lBDesc.materials.add(Material.STEP);
+        */
+        lDesc.createAndActivateXZ(true);
+        
+        /*lDesc = lDetector.newDescription("Building.Bedroom");
         BuildingDescription.BlockMaterialArray lMats = lDesc.newBlockMaterialArray();
         lMats.add(Material.SMOOTH_BRICK);
         lMats.add(Material.BRICK);
@@ -119,6 +203,7 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(lMats);
         lBDesc = lDesc.newBlockDescription("ground_e4");
         lBDesc.materials.add(lMats);
+        */
     }
 
     @Override
