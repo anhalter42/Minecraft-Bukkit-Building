@@ -8,9 +8,6 @@ import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingDB;
 import com.mahn42.framework.BuildingHandlerBase;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
  *
@@ -25,29 +22,12 @@ public class SimpleBuildingHandler extends BuildingHandlerBase {
     }
             
     @Override
-    public boolean breakBlock(BlockBreakEvent aEvent, Building aBuilding) {
-        World lWorld = aEvent.getBlock().getWorld();
-        SimpleBuilding lGate = (SimpleBuilding)aBuilding;
-        SimpleBuildingDB lDB = plugin.DBs.getDB(lWorld);
-        lDB.remove(lGate);
-        return true;
-    }
-
-    @Override
-    public boolean playerInteract(PlayerInteractEvent aEvent, Building aBuilding) {
-        Player lPlayer = aEvent.getPlayer();
-        World lWorld = lPlayer.getWorld();
-        boolean lFound = false;
-        SimpleBuildingDB lDB = plugin.DBs.getDB(lWorld);
-        if (lDB.getBuildings(aBuilding.edge1).isEmpty()
-                && lDB.getBuildings(aBuilding.edge2).isEmpty()) {
-            SimpleBuilding lSimple = new SimpleBuilding();
-            lSimple.cloneFrom(aBuilding);
-            lDB.addRecord(lSimple);
-            lPlayer.sendMessage("Building " + lSimple.getName() + " found.");
-            lFound = true;
-        }
-        return lFound;
+    public Building insert(Building aBuilding) {
+        SimpleBuildingDB lDB = (SimpleBuildingDB) getDB(aBuilding.world);
+        SimpleBuilding lSimple = new SimpleBuilding();
+        lSimple.cloneFrom(aBuilding);
+        lDB.addRecord(lSimple);
+        return lSimple;
     }
 
     @Override
