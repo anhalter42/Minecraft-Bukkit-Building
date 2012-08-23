@@ -26,7 +26,7 @@ public class BuildingListener implements Listener {
         if (lEventBuilding.name != null && !lEventBuilding.name.isEmpty()) {
             if (lAction == BuildingEvent.BuildingAction.PlayerEnter
                     || lAction == BuildingEvent.BuildingAction.PlayerLeave) {
-                SimpleBuildingDB lDB = BuildingPlugin.plugin.DBs.getDB(lEventBuilding.world);
+                SimpleBuildingDB lDB = BuildingPlugin.plugin.SimpleDBs.getDB(lEventBuilding.world);
                 for(SimpleBuilding lBuilding : lDB) {
                     if (lBuilding.description.name.equals("Building.BuildingEntryDetector")) {
                         Block lBlock = lBuilding.getBlock("sign").position.getBlock(lDB.world);

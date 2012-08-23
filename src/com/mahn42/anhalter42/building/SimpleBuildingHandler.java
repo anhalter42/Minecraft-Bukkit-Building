@@ -32,6 +32,6 @@ public class SimpleBuildingHandler extends BuildingHandlerBase {
 
     @Override
     public BuildingDB getDB(World aWorld) {
-        return plugin.DBs.getDB(aWorld);
+        return plugin.SimpleDBs.getDB(aWorld);
     }
 }
