@@ -187,6 +187,9 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(Material.BRICK);
         lBDesc = lDesc.newBlockDescription("wall_right_top_land");
         lBDesc.materials.add(Material.BRICK);
+        lRel = lBDesc.newRelatedTo(new Vector(0, 1, 0), "wall_right_roof");
+        lBDesc = lDesc.newBlockDescription("wall_right_roof");
+        lBDesc.materials.add(Material.WOOD_STEP);
         lBDesc = lDesc.newBlockDescription("runway_left");
         lBDesc.materials.add(Material.WOOD);
         lRel = lBDesc.newRelatedTo(new Vector(0, 0,-4), "runway_left_see");
@@ -211,24 +214,13 @@ public class BuildingPlugin extends JavaPlugin {
         lRel.materials.add(Material.FENCE);
         lBDesc = lDesc.newBlockDescription("runway_left_bar_top");
         lBDesc.materials.add(Material.FENCE);
-        //lRel = lBDesc.newRelatedTo(new Vector(0, 1, 0), "ceiling_left_see");
+        lRel = lBDesc.newRelatedTo(new Vector(0, 1, 0), "runway_left_bar_roof");
+        lBDesc = lDesc.newBlockDescription("runway_left_bar_roof");
+        lBDesc.materials.add(Material.WOOD_STEP);
+        lRel = lBDesc.newRelatedTo(new Vector(6, 0, 8), "wall_right_roof", BuildingDescription.RelatedPosition.AreaYX);
+        lRel.materials.add(Material.WOOD_STEP);
         lBDesc = lDesc.newBlockDescription("runway_right_bar_top");
         lBDesc.materials.add(Material.FENCE);
-        /*
-        lRel = lBDesc.newRelatedTo(new Vector(0, 1, 0), "ceiling_right_see");
-        lBDesc = lDesc.newBlockDescription("ceiling_left_see");
-        lBDesc.materials.add(Material.STEP);
-        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 7), "ceiling_left_land");
-        lRel.materials.add(Material.STEP);
-        lBDesc = lDesc.newBlockDescription("ceiling_right_see");
-        lBDesc.materials.add(Material.STEP);
-        lRel = lBDesc.newRelatedTo(new Vector(0, 0, 7), "ceiling_right_land");
-        lRel.materials.add(Material.STEP);
-        lBDesc = lDesc.newBlockDescription("ceiling_left_land");
-        lBDesc.materials.add(Material.STEP);
-        lBDesc = lDesc.newBlockDescription("ceiling_right_land");
-        lBDesc.materials.add(Material.STEP);
-        */
         lDesc.createAndActivateXZ(true);
         
         /*lDesc = lDetector.newDescription("Building.Bedroom");
