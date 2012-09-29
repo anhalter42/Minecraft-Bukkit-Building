@@ -8,6 +8,7 @@ import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingDB;
 import com.mahn42.framework.BuildingHandlerBase;
 import org.bukkit.World;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -21,6 +22,11 @@ public class SimpleBuildingHandler extends BuildingHandlerBase {
         plugin = aPlugin;
     }
             
+    @Override
+    public JavaPlugin getPlugin() {
+        return plugin;
+    }
+    
     @Override
     public Building insert(Building aBuilding) {
         SimpleBuildingDB lDB = (SimpleBuildingDB) getDB(aBuilding.world);

@@ -13,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -26,6 +27,11 @@ public class SendReceiveHandler extends BuildingHandlerBase {
         plugin = aPlugin;
     }
             
+    @Override
+    public JavaPlugin getPlugin() {
+        return plugin;
+    }
+    
     @Override
     public Building insert(Building aBuilding) {
         SendReceiveDB lDB = (SendReceiveDB) getDB(aBuilding.world);
