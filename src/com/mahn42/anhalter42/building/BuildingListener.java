@@ -4,13 +4,21 @@
  */
 package com.mahn42.anhalter42.building;
 
+import com.mahn42.framework.BlockPosition;
 import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingEvent;
 import java.util.logging.Logger;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Boat;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Minecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 /**
  *
@@ -41,6 +49,36 @@ public class BuildingListener implements Listener {
                             lBlock = lBuilding.getBlock("lever").position.getBlock(lDB.world);
                             lBlock.setData((byte)(lBlock.getData() ^ 8), true);
                             //Logger.getLogger("BuildingListener").info("sig found");
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (lAction == BuildingEvent.BuildingAction.PlayerEnter) {
+            if (lEventBuilding.description.name.startsWith("Building.BoatRailStation")) {
+                if (aEvent.getPlayer().isInsideVehicle()) {
+                    Entity lVehicle = aEvent.getPlayer().getVehicle();
+                    if (lVehicle instanceof Minecart) {
+                        ItemStack lItemInHand = aEvent.getPlayer().getItemInHand();
+                        if (lItemInHand != null && lItemInHand.getType().equals(Material.BOAT)) {
+                            BlockPosition lPos = lEventBuilding.getBlock("water2").position.clone();
+                            lPos.add(0, 1, 0);
+                            lVehicle.eject();
+                            lVehicle.remove();
+                            Entity lSpawnEntity = aEvent.getPlayer().getWorld().spawnEntity(lPos.getLocation(aEvent.getPlayer().getWorld()), EntityType.BOAT);
+                            lSpawnEntity.setPassenger(aEvent.getPlayer());
+                            aEvent.getPlayer().setItemInHand(new ItemStack(Material.MINECART));
+                        }
+                    } else if (lVehicle instanceof Boat) {
+                        ItemStack lItemInHand = aEvent.getPlayer().getItemInHand();
+                        if (lItemInHand != null && lItemInHand.getType().equals(Material.MINECART)) {
+                            BlockPosition lPos = lEventBuilding.getBlock("rails").position.clone();
+                            lVehicle.eject();
+                            lVehicle.remove();
+                            Entity lSpawnEntity = aEvent.getPlayer().getWorld().spawnEntity(lPos.getLocation(aEvent.getPlayer().getWorld()), EntityType.MINECART);
+                            lSpawnEntity.setPassenger(aEvent.getPlayer());
+                            aEvent.getPlayer().setItemInHand(new ItemStack(Material.BOAT));
                         }
                     }
                 }
