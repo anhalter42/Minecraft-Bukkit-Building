@@ -5,9 +5,11 @@
 package com.mahn42.anhalter42.building;
 
 import com.mahn42.framework.BlockPosition;
+import com.mahn42.framework.BlockRect;
 import com.mahn42.framework.BuildingDB;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import org.bukkit.World;
 
 /**
@@ -26,10 +28,15 @@ public class SendReceiveDB extends BuildingDB<SendReceiveBuilding> {
     
     ArrayList<SendReceiveBuilding> getReceiver(BlockPosition aEdge1, BlockPosition aEdge2, String aFrequencyName) {
         ArrayList<SendReceiveBuilding> lResult = new ArrayList<SendReceiveBuilding>();
+        BlockRect lRect1 = new BlockRect(aEdge1, aEdge2);
         for(SendReceiveBuilding lSR : this) {
             if (lSR.mode == SendReceiveBuilding.Mode.receive) {
-                if (lSR.antenaEdge1.isBetween(aEdge1, aEdge2) || lSR.antenaEdge2.isBetween(aEdge1, aEdge2)) {
+                BlockRect lRect2 = new BlockRect(lSR.antenaEdge1, lSR.antenaEdge2);
+                Logger.getLogger("x").info("1 " + lRect1 + " " + lRect2);
+                if (lRect1.isIntersected(lRect2)) {
+                Logger.getLogger("x").info("2 " + lSR.frequencyName);
                     if (aFrequencyName == null || aFrequencyName.equalsIgnoreCase(lSR.frequencyName)) {
+                Logger.getLogger("x").info("3");
                         lResult.add(lSR);
                     }
                 }

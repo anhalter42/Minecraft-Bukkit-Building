@@ -29,6 +29,7 @@ public class SendReceiveBuilding extends Building {
         aCols.add(mode);
         aCols.add(antenaEdge1.toCSV(","));
         aCols.add(antenaEdge2.toCSV(","));
+        aCols.add(frequencyName);
     }
 
     @Override
@@ -37,5 +38,6 @@ public class SendReceiveBuilding extends Building {
         mode = Enum.valueOf(Mode.class, aCols.pop());
         antenaEdge1.fromCSV(aCols.pop(), "\\,");
         antenaEdge2.fromCSV(aCols.pop(), "\\,");
+        frequencyName = aCols.pop();
     }
 }
