@@ -32,11 +32,11 @@ public class SendReceiveDB extends BuildingDB<SendReceiveBuilding> {
         for(SendReceiveBuilding lSR : this) {
             if (lSR.mode == SendReceiveBuilding.Mode.receive) {
                 BlockRect lRect2 = new BlockRect(lSR.antenaEdge1, lSR.antenaEdge2);
-                Logger.getLogger("x").info("1 " + lRect1 + " " + lRect2);
+                //Logger.getLogger("x").info("1 " + lRect1 + " " + lRect2);
                 if (lRect1.isIntersected(lRect2)) {
-                Logger.getLogger("x").info("2 " + lSR.frequencyName);
+                //Logger.getLogger("x").info("2 " + lSR.frequencyName);
                     if (aFrequencyName == null || aFrequencyName.equalsIgnoreCase(lSR.frequencyName)) {
-                Logger.getLogger("x").info("3");
+                //Logger.getLogger("x").info("3");
                         lResult.add(lSR);
                     }
                 }

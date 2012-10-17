@@ -66,7 +66,7 @@ public class SendReceiveHandler extends BuildingHandlerBase {
         boolean lSigOn = aEvent.getNewCurrent() > 0;
         SendReceiveDB lDB = (SendReceiveDB) getDB(lSR.world);
         ArrayList<SendReceiveBuilding> lReceivers = lDB.getReceiver(lSR.antenaEdge1, lSR.antenaEdge2, lSR.frequencyName);
-        plugin.getLogger().info("redstone signal " + lSigOn + " for " + lSR.frequencyName + " found: " + lReceivers.size());
+        //plugin.getLogger().info("redstone signal " + lSigOn + " for " + lSR.frequencyName + " found: " + lReceivers.size());
         for(SendReceiveBuilding lReceiver : lReceivers) {
             Block lBlock = lReceiver.getBlock("lever").position.getBlock(lSR.world);
             byte lData = lBlock.getData();
