@@ -3,4 +3,20 @@
 name: Building
 main: com.mahn42.anhalter42.building.BuildingPlugin
 version: 0.12
+softdepend: [dynmap]
 depend: [MAHN42-Framework]
+commands:
+   bd_landmark_list:
+      description: only for testing, dumps building descriptions.
+      usage: /bd_landmark_list [<worldname>]
+      aliases: [llist]
+      permission: bd.landmark_list
+      permission-message: You don't have permission
+permissions:
+    bd.*:
+        description: Gives access to all building commands
+        children:
+            bd.landmark_list: true
+    bd.landmark_list:
+        description: Allows you to list landmarks
+        default: true
