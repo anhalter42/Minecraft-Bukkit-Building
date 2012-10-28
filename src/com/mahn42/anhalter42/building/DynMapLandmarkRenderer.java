@@ -11,11 +11,11 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.dynmap.DynmapAPI;
 import org.dynmap.markers.AreaMarker;
-import org.dynmap.markers.MarkerAPI;
-import org.dynmap.markers.MarkerSet;
 import org.dynmap.markers.CircleMarker;
 import org.dynmap.markers.Marker;
+import org.dynmap.markers.MarkerAPI;
 import org.dynmap.markers.MarkerIcon;
+import org.dynmap.markers.MarkerSet;
 import org.dynmap.markers.PolyLineMarker;
 
 /**
@@ -26,6 +26,21 @@ public class DynMapLandmarkRenderer implements Runnable {
 
     protected boolean fInRun = false;
     protected Plugin fDynmap;
+    
+    protected static int[] fColors;
+    {
+        fColors = new int[10];
+        fColors[0] = 0xFF00FF;
+        fColors[1] = 0xBF00FF;
+        fColors[2] = 0x0000FF;
+        fColors[3] = 0x0080FF;
+        fColors[4] = 0x00FFFF;
+        fColors[5] = 0x40FF00;
+        fColors[6] = 0xFFFF00;
+        fColors[7] = 0xFFBF00;
+        fColors[8] = 0xFF0000;
+        fColors[9] = 0x010101;
+    }
     
     @Override
     public void run() {
@@ -52,6 +67,7 @@ public class DynMapLandmarkRenderer implements Runnable {
     }
     
     private void execute() {
+        int lColorIndex = 0;
         MarkerAPI lMarkerAPI = getMarkerAPI();
         MarkerSet lMarkerSet = lMarkerAPI.getMarkerSet("building.landmarks");
         if (lMarkerSet != null) {
@@ -61,6 +77,8 @@ public class DynMapLandmarkRenderer implements Runnable {
         if (lMarkerSet == null) {
             return;
         }
+        lMarkerSet.setLabelShow(true);
+        BuildingPlugin.plugin.LandmarkDBs.getDB("world"); // TODO workaround
         ArrayList<LandmarkDB> lDBs = BuildingPlugin.plugin.LandmarkDBs.getDBs();
         for(LandmarkDB lDB : lDBs) {
             for(Landmark lMark : lDB) {
@@ -73,6 +91,17 @@ public class DynMapLandmarkRenderer implements Runnable {
                         lKind = Landmark.Kind.Line;
                     } else {
                         lKind = Landmark.Kind.Area;
+                    }
+                }
+                int lColor = lMark.color;
+                if (lColor >= 0 && lColor <= 10) {
+                    lColor = fColors[lColor];
+                }
+                if (lColor == -2) {
+                    lColor = fColors[lColorIndex];
+                    lColorIndex++;
+                    if (lColorIndex > 9) {
+                        lColorIndex = 0;
                     }
                 }
                 double x[] = new double[lMark.positions.size()];
@@ -100,7 +129,7 @@ public class DynMapLandmarkRenderer implements Runnable {
                             lCircle.setDescription(lMark.name);
                             lCircle.setFillStyle(0.0, 0);
                             lCircle.setLabel(lMark.name);
-                            lCircle.setLineStyle(1, 1.0, 0x80A000); // TODO Colors
+                            lCircle.setLineStyle(lMark.lineWidth, 1.0, lColor);
                         }
                         break;
                     case Area:
@@ -108,25 +137,17 @@ public class DynMapLandmarkRenderer implements Runnable {
                         if (lArea != null) {
                             lArea.setDescription(lMark.name);
                             lArea.setFillStyle(0.0, 0);
-                            lArea.setLineStyle(1, 1.0, 0x80A00);
+                            lArea.setLineStyle(lMark.lineWidth, 1.0, lColor);
                         }
                         break;
                     case Line:
                         PolyLineMarker lLine = lMarkerSet.createPolyLineMarker(lMark.key, lMark.name, false, lDB.world.getName(), x, y, z, false);
                         if (lLine != null) {
                             lLine.setDescription(lMark.name);
-                            lLine.setLineStyle(1, 1.0, 0x80A00);
+                            lLine.setLineStyle(lMark.lineWidth, 1.0, lColor);
                         }
                         break;
                 }
-                //lMarkerAPI.getMarkerIcon(null)
-                //lMarkerSet.createMarker(null, null, null, d, d1, d2, null, fInRun)
-                /*
-                PolyLineMarker lRect = lMarkerSet.createPolyLineMarker(lBuilding.key, lBuilding.getName(), true, lDB.world.getName(), lXs, lYs, lZs, false);
-                if (lRect != null) {
-                    lRect.setLineStyle(3, 0.75, 0xF0A0A0);
-                }
-                */
             }
         }
     }    

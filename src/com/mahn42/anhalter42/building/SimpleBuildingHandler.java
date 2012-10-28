@@ -34,9 +34,7 @@ public class SimpleBuildingHandler extends BuildingHandlerBase {
         SimpleBuilding lSimple = new SimpleBuilding();
         lSimple.cloneFrom(aBuilding);
         lDB.addRecord(lSimple);
-        Logger.getLogger("xxx").info("A0");
         if (lSimple.description.name.equals("Building.Landmark")) {
-        Logger.getLogger("xxx").info("A");
             plugin.LandmarkDBs.getDB(aBuilding.world).landmarkBuildingInserted(lSimple);
         }
         return lSimple;
@@ -44,9 +42,7 @@ public class SimpleBuildingHandler extends BuildingHandlerBase {
 
     @Override
     public boolean remove(Building aBuilding) {
-        Logger.getLogger("xxx").info("B0");
         if (aBuilding.description.name.equals("Building.Landmark")) {
-        Logger.getLogger("xxx").info("B");
             plugin.LandmarkDBs.getDB(aBuilding.world).landmarkBuildingRemoved(aBuilding);
         }
         return super.remove(aBuilding);

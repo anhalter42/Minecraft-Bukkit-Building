@@ -45,12 +45,18 @@ public class LandmarkDB extends DBSetWorld<Landmark> {
                     MarkerAPI lMarkerAPI = BuildingPlugin.plugin.getDynmapTask().getMarkerAPI();
                     MarkerIcon lIcon = lMarkerAPI.getMarkerIcon(lMode);
                     if (lIcon != null) {
-                        Logger.getLogger("xx").info("icon found!");
                         lMark.kind = Landmark.Kind.Icon;
+                        lMark.iconName = lMode;
                     } else if (lMode.equalsIgnoreCase("area")) {
                         lMark.kind = Landmark.Kind.Area;
                     } else if (lMode.equalsIgnoreCase("line") || lMode.equalsIgnoreCase("path")) {
                         lMark.kind = Landmark.Kind.Line;
+                    }
+                    String lParam = lLines[3];
+                    try {
+                        lMark.color = Integer.parseInt(lParam);
+                    } catch (Exception ex) {
+                        //
                     }
                     addRecord(lMark);
                 }

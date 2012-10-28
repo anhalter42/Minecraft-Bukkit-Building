@@ -24,6 +24,8 @@ public class Landmark extends DBRecordWorld {
     public String name;
     public Kind kind = Kind.Detect;
     public String iconName = "default";
+    public int color = -2;
+    public int lineWidth = 2;
     public ArrayList<BlockPosition> positions = new ArrayList<BlockPosition>();
     
     @Override
@@ -41,6 +43,8 @@ public class Landmark extends DBRecordWorld {
         aCols.add(lStr);
         aCols.add(kind);
         aCols.add(iconName);
+        aCols.add(color);
+        aCols.add(lineWidth);
     }
 
     @Override
@@ -57,6 +61,8 @@ public class Landmark extends DBRecordWorld {
         }
         kind = Kind.valueOf(aCols.pop());
         iconName = aCols.pop();
+        color = aCols.popInt();
+        lineWidth = aCols.popInt();
     }
 
     public ArrayList<BlockPosition> getPositions() {
