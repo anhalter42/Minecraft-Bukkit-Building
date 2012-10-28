@@ -47,9 +47,12 @@ public class SendReceiveHandler extends BuildingHandlerBase {
         lSR.antenaEdge2.cloneFrom(lbase);
         lSR.antenaEdge1.add(-lRange, -lRange, -lRange);
         lSR.antenaEdge2.add(lRange, lRange, lRange);
-        plugin.getLogger().info("strength " + lRange);
+        //plugin.getLogger().info("strength " + lRange);
         if (lSR.description.name.contains("Receiver")) {
             lSR.mode = SendReceiveBuilding.Mode.receive;
+            lSR.name = "receive " + lSR.frequencyName + " (" + lRange + ")";
+        } else {
+            lSR.name = "send " + lSR.frequencyName + " (" + lRange + ")";
         }
         lDB.addRecord(lSR);
         return lSR;
