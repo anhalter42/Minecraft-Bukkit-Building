@@ -74,6 +74,7 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.BuildingEntryDetector");
         lDesc.typeName = "Building Enter/Leave Detector";
         lDesc.handler = lHandler;
+        lDesc.iconName = "gear";
         lBDesc = lDesc.newBlockDescription("base");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
         lBDesc.detectSensible = true;
@@ -90,6 +91,7 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.RedStoneReceiver");
         lDesc.typeName = "Building for receiving redstone signals";
         lDesc.handler = lSRHandler;
+        lDesc.iconName = "gear";
         lBDesc = lDesc.newBlockDescription("base");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
         lBDesc.detectSensible = true;
@@ -114,6 +116,7 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.RedStoneSender");
         lDesc.typeName = "Building for sending redstone signals";
         lDesc.handler = lSRHandler;
+        lDesc.iconName = "gear";
         lBDesc = lDesc.newBlockDescription("base");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
         lBDesc.detectSensible = true;
@@ -164,6 +167,7 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.BoatRailStation");
         lDesc.handler = lHandler;
         lDesc.typeName = "BoatRailStation";
+        lDesc.iconName = "anchor";
         lBDesc = lDesc.newBlockDescription("railblock");
         lBDesc.materials.add(Material.COBBLESTONE_STAIRS);
         lBDesc.materials.add(Material.SMOOTH_STAIRS);
@@ -319,6 +323,8 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.Landmark");
         lDesc.handler = lHandler;
         lDesc.typeName = "Landmark";
+        lDesc.iconName = "gear";
+        lDesc.visibleOnMap = false;
         lBDesc = lDesc.newBlockDescription("bottom");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
         lBDesc.detectSensible = true;

@@ -67,11 +67,15 @@ public class LandmarkDB extends DBSetWorld<Landmark> {
     }
     
     public void landmarkBuildingRemoved(Building aBuilding) {
-        String[] lParts = aBuilding.name.split(" #");
+        String[] lParts = aBuilding.name.split("\\ \\#");
         Landmark lMark = getLandmark(lParts[0]);
         if (lMark != null) {
             lMark.positions.remove(aBuilding.edge1);
             lMark.positions.remove(aBuilding.edge2);
+            BuildingBlock lPBlock = aBuilding.getBlock("bottom");
+            if (lPBlock != null) {
+                lMark.positions.remove(lPBlock.position);
+            }
             if (lMark.positions.isEmpty()) {
                 remove(lMark);
             }
