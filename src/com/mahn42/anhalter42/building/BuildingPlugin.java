@@ -74,7 +74,8 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.BuildingEntryDetector");
         lDesc.typeName = "Building Enter/Leave Detector";
         lDesc.handler = lHandler;
-        lDesc.iconName = "gear";
+        lDesc.circleRadius = 1;
+        lDesc.color = 0xC818CB;
         lBDesc = lDesc.newBlockDescription("base");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
         lBDesc.detectSensible = true;
@@ -91,7 +92,8 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.RedStoneReceiver");
         lDesc.typeName = "Building for receiving redstone signals";
         lDesc.handler = lSRHandler;
-        lDesc.iconName = "gear";
+        lDesc.circleRadius = 1;
+        lDesc.color = 0x18CB18;
         lBDesc = lDesc.newBlockDescription("base");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
         lBDesc.detectSensible = true;
@@ -116,7 +118,8 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.RedStoneSender");
         lDesc.typeName = "Building for sending redstone signals";
         lDesc.handler = lSRHandler;
-        lDesc.iconName = "gear";
+        lDesc.circleRadius = 1;
+        lDesc.color = 0xCB6918;
         lBDesc = lDesc.newBlockDescription("base");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
         lBDesc.detectSensible = true;
@@ -323,7 +326,7 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc = lDetector.newDescription("Building.Landmark");
         lDesc.handler = lHandler;
         lDesc.typeName = "Landmark";
-        lDesc.iconName = "gear";
+        lDesc.circleRadius = 1;
         lDesc.visibleOnMap = false;
         lBDesc = lDesc.newBlockDescription("bottom");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
