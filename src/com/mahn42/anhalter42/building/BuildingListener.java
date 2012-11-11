@@ -7,9 +7,12 @@ package com.mahn42.anhalter42.building;
 import com.mahn42.framework.BlockPosition;
 import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingEvent;
+import com.mahn42.framework.Framework;
 import java.util.logging.Logger;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Entity;
@@ -54,8 +57,8 @@ public class BuildingListener implements Listener {
                 }
             }
         }
-        
         if (lAction == BuildingEvent.BuildingAction.PlayerEnter) {
+            // Boat Rail Station Umsetzer
             if (lEventBuilding.description.name.startsWith("Building.BoatRailStation")) {
                 if (aEvent.getPlayer().isInsideVehicle()) {
                     Entity lVehicle = aEvent.getPlayer().getVehicle();
@@ -80,6 +83,22 @@ public class BuildingListener implements Listener {
                             lSpawnEntity.setPassenger(aEvent.getPlayer());
                             aEvent.getPlayer().setItemInHand(new ItemStack(Material.BOAT));
                         }
+                    }
+                }
+            } else if (lEventBuilding.description.name.startsWith("Building.Portal")) {
+                BlockState lState = lEventBuilding.getBlock("sign").position.getBlock(lEventBuilding.world).getState();
+                if (lState instanceof Sign) {
+                    String[] lLines = ((Sign)lState).getLines();
+                    String lWorldName = lLines[3];
+                    if (lWorldName != null && !lWorldName.isEmpty()) {
+                        World lWorld = Framework.plugin.getServer().getWorld(lWorldName);
+                        if (lWorld != null) {
+                            Framework.plugin.teleportPlayerToWorld(aEvent.getPlayer(), lWorld);
+                        } else {
+                            aEvent.getPlayer().sendMessage("unkown world '" + lWorldName + "'!");
+                        }
+                    } else {
+                        aEvent.getPlayer().sendMessage("unkown world '" + lWorldName + "'!");
                     }
                 }
             }

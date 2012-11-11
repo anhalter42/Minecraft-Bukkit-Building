@@ -342,6 +342,39 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(Material.SIGN_POST);
         lBDesc.materials.add(Material.WALL_SIGN);
         lDesc.activate();
+        
+        lDesc = lDetector.newDescription("Building.Portal");
+        lDesc.handler = lHandler;
+        lDesc.typeName = "Portal";
+        lDesc.iconName = "portal";
+        lBDesc = lDesc.newBlockDescription("bottomleft");
+        lBDesc.materials.add(Material.BRICK, (byte)3);
+        lBDesc.detectSensible = true;
+        lBDesc.nameSensible = true;
+        lRel = lBDesc.newRelatedTo("sign", BuildingDescription.RelatedPosition.Nearby, 1);
+        lRel = lBDesc.newRelatedTo(new Vector( 3, 0, 0), "bottomright");
+        lRel.materials.add(Material.AIR);
+        lRel.minDistance = 2;
+        lRel = lBDesc.newRelatedTo(new Vector( 0, 4, 0), "topleft");
+        lRel.materials.add(Material.BRICK, (byte)3);
+        lRel.minDistance = 2;
+        lBDesc = lDesc.newBlockDescription("bottomright");
+        lBDesc.materials.add(Material.BRICK, (byte)3);
+        lRel = lBDesc.newRelatedTo(new Vector( 0, 4, 0), "topright");
+        lRel.materials.add(Material.BRICK, (byte)3);
+        lRel.minDistance = 2;
+        lBDesc = lDesc.newBlockDescription("topleft");
+        lBDesc.materials.add(Material.BRICK, (byte)3);
+        lRel = lBDesc.newRelatedTo(new Vector( 3, 0, 0), "topright");
+        lRel.materials.add(Material.BRICK, (byte)3);
+        lRel.minDistance = 2;
+        lBDesc = lDesc.newBlockDescription("topright");
+        lBDesc.materials.add(Material.BRICK, (byte)3);
+        lBDesc = lDesc.newBlockDescription("sign");
+        lBDesc.materials.add(Material.SIGN);
+        lBDesc.materials.add(Material.SIGN_POST);
+        lBDesc.materials.add(Material.WALL_SIGN);
+        lDesc.createAndActivateXZ();
     }
 
     @Override
