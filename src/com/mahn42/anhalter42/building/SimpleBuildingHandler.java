@@ -9,6 +9,7 @@ import com.mahn42.framework.BuildingDB;
 import com.mahn42.framework.BuildingHandlerBase;
 import java.util.logging.Logger;
 import org.bukkit.World;
+import org.bukkit.block.Sign;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -36,6 +37,11 @@ public class SimpleBuildingHandler extends BuildingHandlerBase {
         lDB.addRecord(lSimple);
         if (lSimple.description.name.equals("Building.Landmark")) {
             plugin.LandmarkDBs.getDB(aBuilding.world).landmarkBuildingInserted(lSimple);
+        }
+        if (lSimple.description.name.startsWith("Building.Portal")) {
+            Sign lSign = (Sign)lSimple.getBlock("sign").position.getBlock(lSimple.world).getState();
+            String[] lLines = lSign.getLines();
+            lSimple.name = lLines[0] + " " + lLines[1];
         }
         return lSimple;
     }
