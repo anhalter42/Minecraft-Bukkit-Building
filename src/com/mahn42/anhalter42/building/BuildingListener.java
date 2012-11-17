@@ -89,11 +89,12 @@ public class BuildingListener implements Listener {
                 BlockState lState = lEventBuilding.getBlock("sign").position.getBlock(lEventBuilding.world).getState();
                 if (lState instanceof Sign) {
                     String[] lLines = ((Sign)lState).getLines();
+                    String lMark = lLines[2];
                     String lWorldName = lLines[3];
                     if (lWorldName != null && !lWorldName.isEmpty()) {
                         World lWorld = Framework.plugin.getServer().getWorld(lWorldName);
                         if (lWorld != null) {
-                            Framework.plugin.teleportPlayerToWorld(aEvent.getPlayer(), lWorld);
+                            Framework.plugin.teleportPlayerToWorld(aEvent.getPlayer(), lWorld, lMark);
                         } else {
                             aEvent.getPlayer().sendMessage("unkown world '" + lWorldName + "'!");
                         }

@@ -7,6 +7,8 @@ package com.mahn42.anhalter42.building;
 import com.mahn42.framework.BlockPosition;
 import com.mahn42.framework.Framework;
 import java.util.ArrayList;
+import java.util.List;
+import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.dynmap.DynmapAPI;
@@ -78,7 +80,10 @@ public class DynMapLandmarkRenderer implements Runnable {
             return;
         }
         lMarkerSet.setLabelShow(true);
-        BuildingPlugin.plugin.LandmarkDBs.getDB("world"); // TODO workaround
+        List<World> lWorlds = BuildingPlugin.plugin.getServer().getWorlds();
+        for(World lWorld : lWorlds) {
+            BuildingPlugin.plugin.LandmarkDBs.getDB(lWorld);
+        }
         ArrayList<LandmarkDB> lDBs = BuildingPlugin.plugin.LandmarkDBs.getDBs();
         for(LandmarkDB lDB : lDBs) {
             for(Landmark lMark : lDB) {

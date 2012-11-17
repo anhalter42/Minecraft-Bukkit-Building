@@ -4,10 +4,12 @@
  */
 package com.mahn42.anhalter42.building;
 
+import com.mahn42.framework.BlockRect;
 import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingBlock;
 import com.mahn42.framework.DBSetWorld;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
@@ -89,5 +91,15 @@ public class LandmarkDB extends DBSetWorld<Landmark> {
             }
         }
         return null;
+    }
+
+    public ArrayList<Landmark> getLandmarks(BlockRect aArea) {
+        ArrayList<Landmark> lResult = new ArrayList<Landmark>();
+        for(Landmark lMark : this) {
+            if (aArea.isBetween(lMark.getPositions().get(0))) {
+                lResult.add(lMark);
+            }
+        }
+        return lResult;
     }
 }

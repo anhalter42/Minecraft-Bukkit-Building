@@ -46,6 +46,7 @@ public class BuildingPlugin extends JavaPlugin {
         Framework.plugin.registerSaver(SimpleDBs);
         Framework.plugin.registerSaver(SendReceiveDBs);
         Framework.plugin.registerSaver(LandmarkDBs);
+        Framework.plugin.registerMarkerStorage(new MarkerStorage());
 
         getCommand("bd_landmark_list").setExecutor(new CommandLandmarkList());
         
@@ -187,6 +188,8 @@ public class BuildingPlugin extends JavaPlugin {
         lRel = lBDesc.newRelatedTo(new Vector(0,-1,-1), "water");
         lBDesc = lDesc.newBlockDescription("rails");
         lBDesc.materials.add(Material.RAILS);
+        lBDesc.materials.add(Material.POWERED_RAIL);
+        lBDesc.materials.add(Material.DETECTOR_RAIL);
         lBDesc = lDesc.newBlockDescription("water");
         lBDesc.materials.add(Material.STATIONARY_WATER);
         lBDesc.materials.add(Material.WATER);
