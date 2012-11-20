@@ -146,6 +146,7 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc = lDesc.newBlockDescription("top");
         lBDesc.materials.add(Material.SANDSTONE);
         lBDesc.detectSensible = true;
+        lBDesc.nameSensible = true;
         lRel = lBDesc.newRelatedTo(new Vector( 80,-80, 80), "ground1");
         lRel.materials.add(Material.SANDSTONE);
         lRel.minDistance = 1;

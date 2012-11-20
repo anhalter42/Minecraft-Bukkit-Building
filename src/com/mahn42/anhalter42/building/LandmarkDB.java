@@ -63,7 +63,11 @@ public class LandmarkDB extends DBSetWorld<Landmark> {
                     addRecord(lMark);
                 }
                 lMark.positions.add(lPBlock.position.clone());
-                aBuilding.name = lMark.name + " #" + lMark.positions.size();
+                if (lMark.kind == Landmark.Kind.Icon || lMark.kind == Landmark.Kind.Icon) {
+                    aBuilding.name = lMark.name;
+                } else {
+                    aBuilding.name = lMark.name + " #" + lMark.positions.size();
+                }
             }
         }
     }
@@ -85,8 +89,9 @@ public class LandmarkDB extends DBSetWorld<Landmark> {
     }
     
     public Landmark getLandmark(String aName) {
+        String lName = aName.replaceAll(" ", "");
         for(Landmark lMark : this) {
-            if (lMark.name.equals(aName)) {
+            if (lMark.name.replaceAll(" ", "").equalsIgnoreCase(lName)) {
                 return lMark;
             }
         }
