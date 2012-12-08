@@ -78,7 +78,7 @@ public class SendReceiveHandler extends BuildingHandlerBase {
             } else {
                 lData &= 0xF7;
             }
-            lBlock.setData(lData);
+            lBlock.setData(lData, true);
         }
         return true;
     }
