@@ -8,7 +8,10 @@ import com.mahn42.framework.BlockPosition;
 import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingEvent;
 import com.mahn42.framework.Framework;
+import java.util.HashMap;
 import java.util.logging.Logger;
+import org.bukkit.Effect;
+import org.bukkit.EntityEffect;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -28,6 +31,8 @@ import org.bukkit.inventory.PlayerInventory;
  * @author andre
  */
 public class BuildingListener implements Listener {
+    
+    protected HashMap<String, Long> fLastPortalAccess = new HashMap<String, Long>();
     
     @EventHandler
     public void buildingChanged(BuildingEvent aEvent) {
@@ -87,21 +92,29 @@ public class BuildingListener implements Listener {
                     }
                 }
             } else if (lEventBuilding.description.name.startsWith("Building.Portal")) {
-                BlockState lState = lEventBuilding.getBlock("sign").position.getBlock(lEventBuilding.world).getState();
-                if (lState instanceof Sign) {
-                    String[] lLines = ((Sign)lState).getLines();
-                    String lMark = lLines[2];
-                    String lWorldName = lLines[3];
-                    if (lWorldName != null && !lWorldName.isEmpty()) {
-                        World lWorld = Framework.plugin.getServer().getWorld(lWorldName);
-                        if (lWorld != null) {
-                            Framework.plugin.teleportPlayerToWorld(aEvent.getPlayer(), lWorld, lMark);
+                Long lLast = fLastPortalAccess.get(aEvent.getPlayer().getName());
+                if (lLast == null || lLast < (Framework.plugin.getSyncCallCount() - 60)) {
+                    fLastPortalAccess.put(aEvent.getPlayer().getName(), Framework.plugin.getSyncCallCount());
+                    BlockState lState = lEventBuilding.getBlock("sign").position.getBlock(lEventBuilding.world).getState();
+                    if (lState instanceof Sign) {
+                        String[] lLines = ((Sign)lState).getLines();
+                        String lMark = lLines[2];
+                        String lWorldName = lLines[3];
+                        if (lWorldName != null && !lWorldName.isEmpty()) {
+                            World lWorld = Framework.plugin.getServer().getWorld(lWorldName);
+                            if (lWorld != null) {
+                                aEvent.getPlayer().getWorld().playEffect(aEvent.getPlayer().getLocation(), Effect.MOBSPAWNER_FLAMES, 10);
+                                aEvent.getPlayer().getWorld().playEffect(aEvent.getPlayer().getLocation(), Effect.BLAZE_SHOOT, 10);
+                                Framework.plugin.teleportPlayerToWorld(aEvent.getPlayer(), lWorld, lMark);
+                            } else {
+                                aEvent.getPlayer().sendMessage("unkown world '" + lWorldName + "'!");
+                            }
                         } else {
                             aEvent.getPlayer().sendMessage("unkown world '" + lWorldName + "'!");
                         }
-                    } else {
-                        aEvent.getPlayer().sendMessage("unkown world '" + lWorldName + "'!");
                     }
+                } else {
+                    Logger.getLogger("xx").info("portal not entered! " + lLast + " " + Framework.plugin.getSyncCallCount());
                 }
             }
         }
