@@ -53,13 +53,14 @@ public class BuildingPlugin extends JavaPlugin {
         fDynMapTask = new DynMapLandmarkRenderer();
         getServer().getScheduler().scheduleSyncRepeatingTask(this, fDynMapTask, 100, 20);
         
-        ItemStack lItemStack = new ItemStack(Material.SMOOTH_BRICK, 4, (short)0, (byte)3);
+        ItemStack lItemStack = new ItemStack(Material.SMOOTH_BRICK, 4);//, (short)0, (byte)3);
+        lItemStack.setData(new MaterialData(Material.SMOOTH_BRICK, (byte)4));
         ShapedRecipe lShapeRecipe = new ShapedRecipe(lItemStack);
         lShapeRecipe.shape("AA", "AA");
         lShapeRecipe.setIngredient('A', Material.SMOOTH_BRICK);
         getServer().addRecipe(lShapeRecipe);
 
-        lItemStack = new ItemStack(Material.SMOOTH_BRICK, 4, (short)0, (byte)0);
+        lItemStack = new ItemStack(Material.SMOOTH_BRICK, 4); //, (short)0, (byte)0);
         ShapedRecipe lChiseledStoneBrick = new ShapedRecipe(lItemStack);
         lChiseledStoneBrick.shape("AA", "AA");
         lChiseledStoneBrick.setIngredient('A', new MaterialData(Material.SMOOTH_BRICK, (byte)3));
@@ -296,7 +297,7 @@ public class BuildingPlugin extends JavaPlugin {
         //lRel = lBDesc.newRelatedTo(new Vector( 0, 1, 0), "door_top");
         //lBDesc = lDesc.newBlockDescription("door_top");
         //lBDesc.materials.add(Material.WOODEN_DOOR);
-        lDesc.createAndActivateXZ();
+        //lDesc.createAndActivateXZ();
 
         lDesc = lDetector.newDescription("Building.Lift");
         lDesc.handler = lHandler;
@@ -325,7 +326,7 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(Material.IRON_BLOCK);
         lBDesc = lDesc.newBlockDescription("toprightback");
         lBDesc.materials.add(Material.IRON_BLOCK);
-        lDesc.activate();
+        //lDesc.activate();
 
         lDesc = lDetector.newDescription("Building.Landmark");
         lDesc.handler = lHandler;
@@ -379,6 +380,35 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(Material.SIGN_POST);
         lBDesc.materials.add(Material.WALL_SIGN);
         lDesc.createAndActivateXZ();
+        
+        lDesc = lDetector.newDescription("Building.Monument.Creeper");
+        lDesc.handler = lHandler;
+        lDesc.typeName = "Creeper Monument";
+        //lDesc.iconName = "tower";
+        lDesc.circleRadius = 100;
+        lDesc.influenceRadiusFactor = 100.0;
+        lDesc.color = 0x80FF80;
+        lBDesc = lDesc.newBlockDescription("top");
+        lBDesc.materials.add(Material.GOLD_BLOCK);
+        lBDesc.detectSensible = true;
+        lBDesc.nameSensible = true;
+        lRel = lBDesc.newRelatedTo(new Vector( 2,-2, 2), "e11");
+        lRel.materials.add(Material.NETHERRACK);
+        lRel = lBDesc.newRelatedTo(new Vector(-2,-2, 2), "e12");
+        lRel.materials.add(Material.NETHERRACK);
+        lRel = lBDesc.newRelatedTo(new Vector(-2,-2,-2), "e13");
+        lRel.materials.add(Material.NETHERRACK);
+        lRel = lBDesc.newRelatedTo(new Vector( 2,-2,-2), "e14");
+        lRel.materials.add(Material.NETHERRACK);
+        lBDesc = lDesc.newBlockDescription("e11");
+        lBDesc.materials.add(Material.NETHERRACK);
+        lBDesc = lDesc.newBlockDescription("e12");
+        lBDesc.materials.add(Material.NETHERRACK);
+        lBDesc = lDesc.newBlockDescription("e13");
+        lBDesc.materials.add(Material.NETHERRACK);
+        lBDesc = lDesc.newBlockDescription("e14");
+        lBDesc.materials.add(Material.NETHERRACK);
+        lDesc.activate();
     }
 
     @Override
