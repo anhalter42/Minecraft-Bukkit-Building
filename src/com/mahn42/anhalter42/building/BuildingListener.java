@@ -120,7 +120,7 @@ public class BuildingListener implements Listener {
     }
 
     @EventHandler
-    public void creatorSpawn(CreatureSpawnEvent aEvent) {
+    public void creatureSpawn(CreatureSpawnEvent aEvent) {
         if (aEvent.getSpawnReason() != CreatureSpawnEvent.SpawnReason.CUSTOM
                 && aEvent.getSpawnReason() != CreatureSpawnEvent.SpawnReason.EGG
                 && aEvent.getSpawnReason() != CreatureSpawnEvent.SpawnReason.SPAWNER
@@ -146,7 +146,7 @@ public class BuildingListener implements Listener {
                         if (lRect.isBetween(lPos)) {
                             Framework.plugin.log("building", "creature " + lType + " blocked!");
                             aEvent.setCancelled(true);
-                            lEntity.getWorld().playEffect(lEntity.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
+                            //lEntity.getWorld().playEffect(lEntity.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
                         }
                     }
                 }
