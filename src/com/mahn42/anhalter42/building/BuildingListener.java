@@ -9,6 +9,7 @@ import com.mahn42.framework.BlockRect;
 import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingEvent;
 import com.mahn42.framework.Framework;
+import com.mahn42.framework.SyncBlockList;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import org.bukkit.Effect;
@@ -23,6 +24,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -149,6 +151,23 @@ public class BuildingListener implements Listener {
                             //lEntity.getWorld().playEffect(lEntity.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
                         }
                     }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void placeBlock(BlockPlaceEvent aEvent) {
+        if (!aEvent.isCancelled()) {
+            BlockState blockReplacedState = aEvent.getBlockReplacedState();
+            if (blockReplacedState != null && blockReplacedState.getType().equals(Material.SNOW)) {
+                ItemStack itemInHand = aEvent.getItemInHand();
+                if (itemInHand != null && itemInHand.getType().equals(Material.SNOW)) {
+                    byte lData = blockReplacedState.getRawData();
+                    byte lNewData = (byte) ((lData + 1) & 0x7);
+                    Framework.plugin.getLogger().info("old: " + lData + " new: " + lNewData);
+                    aEvent.getBlockPlaced().setData(lNewData, true);
+                    aEvent.setBuild(true);
                 }
             }
         }

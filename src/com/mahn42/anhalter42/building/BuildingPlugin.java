@@ -53,8 +53,9 @@ public class BuildingPlugin extends JavaPlugin {
         fDynMapTask = new DynMapLandmarkRenderer();
         getServer().getScheduler().scheduleSyncRepeatingTask(this, fDynMapTask, 100, 20);
         
-        ItemStack lItemStack = new ItemStack(Material.SMOOTH_BRICK, 4);//, (short)0, (byte)3);
-        lItemStack.setData(new MaterialData(Material.SMOOTH_BRICK, (byte)4));
+        //ItemStack lItemStack = new ItemStack(Material.SMOOTH_BRICK, 4);//, (short)0, (byte)3);
+        //lItemStack.setData(new MaterialData(Material.SMOOTH_BRICK, (byte)3));
+        ItemStack lItemStack = new ItemStack(Material.SMOOTH_BRICK, 4, (short)0, (byte)3);
         ShapedRecipe lShapeRecipe = new ShapedRecipe(lItemStack);
         lShapeRecipe.shape("AA", "AA");
         lShapeRecipe.setIngredient('A', Material.SMOOTH_BRICK);
@@ -65,6 +66,14 @@ public class BuildingPlugin extends JavaPlugin {
         lChiseledStoneBrick.shape("AA", "AA");
         lChiseledStoneBrick.setIngredient('A', new MaterialData(Material.SMOOTH_BRICK, (byte)3));
         getServer().addRecipe(lChiseledStoneBrick);
+
+        //lItemStack = new ItemStack(Material.SNOW_BLOCK, 6); //, (short)0, (byte)0);
+        //lItemStack.setData(new MaterialData(Material.SNOW_BLOCK, (byte)3));
+        lItemStack = new ItemStack(Material.SNOW, 6, (short)0, (byte)3);
+        ShapedRecipe lHalfSnow = new ShapedRecipe(lItemStack);
+        lHalfSnow.shape("AAA");
+        lHalfSnow.setIngredient('A', new MaterialData(Material.SNOW_BLOCK, (byte)0));
+        getServer().addRecipe(lHalfSnow);
         
         SimpleBuildingHandler lHandler = new SimpleBuildingHandler(this);
         SendReceiveHandler lSRHandler = new SendReceiveHandler(this);
