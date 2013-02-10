@@ -39,14 +39,20 @@ public class SendReceiveHandler extends BuildingHandlerBase {
         lSR.cloneFrom(aBuilding);
         Sign lSign = (Sign)lSR.getBlock("sign").position.getBlock(lSR.world).getState();
         lSR.frequencyName = lSign.getLine(0)+lSign.getLine(1);
-        BlockPosition lbase = lSR.getBlock("antenabase").position;
-        BlockPosition ltop = lSR.getBlock("antenatop").position;
-        int lHigh = ltop.y - lbase.y + 1;
-        int lRange = (int) (8 + Math.pow(2, lHigh));
-        lSR.antenaEdge1.cloneFrom(lbase);
-        lSR.antenaEdge2.cloneFrom(lbase);
-        lSR.antenaEdge1.add(-lRange, -lRange, -lRange);
-        lSR.antenaEdge2.add(lRange, lRange, lRange);
+        int lRange = 1;
+        if (lSR.getBlock("antenabase") != null) {
+            BlockPosition lbase = lSR.getBlock("antenabase").position;
+            BlockPosition ltop = lSR.getBlock("antenatop").position;
+            int lHigh = ltop.y - lbase.y + 1;
+            lRange = (int) (8 + Math.pow(2, lHigh));
+            lSR.antenaEdge1.cloneFrom(lbase);
+            lSR.antenaEdge2.cloneFrom(lbase);
+            lSR.antenaEdge1.add(-lRange, -lRange, -lRange);
+            lSR.antenaEdge2.add(lRange, lRange, lRange);
+        } else {
+            lSR.antenaEdge1.cloneFrom(lSR.getBlock("base").position);
+            lSR.antenaEdge2.cloneFrom(lSR.getBlock("base").position);
+        }
         //plugin.getLogger().info("strength " + lRange);
         if (lSR.description.name.contains("Receiver")) {
             lSR.mode = SendReceiveBuilding.Mode.receive;

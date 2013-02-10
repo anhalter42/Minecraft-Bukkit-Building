@@ -126,6 +126,25 @@ public class BuildingPlugin extends JavaPlugin {
         lBDesc.materials.add(Material.FENCE);
         lDesc.activate();
    
+        lDesc = lDetector.newDescription("Building.RedStoneReceiver.Lamp");
+        lDesc.typeName = "Lamp for receiving redstone signals";
+        lDesc.handler = lSRHandler;
+        lDesc.circleRadius = 1;
+        lDesc.color = 0x88CB18;
+        lBDesc = lDesc.newBlockDescription("base");
+        lBDesc.materials.add(Material.REDSTONE_LAMP_ON);
+        lBDesc.materials.add(Material.REDSTONE_LAMP_OFF);
+        lBDesc.detectSensible = true;
+        lRel = lBDesc.newRelatedTo("lever", BuildingDescription.RelatedPosition.Nearby, 1);
+        lRel = lBDesc.newRelatedTo("sign", BuildingDescription.RelatedPosition.Nearby, 1);
+        lBDesc = lDesc.newBlockDescription("lever");
+        lBDesc.materials.add(Material.LEVER);
+        lBDesc = lDesc.newBlockDescription("sign");
+        lBDesc.materials.add(Material.SIGN);
+        lBDesc.materials.add(Material.SIGN_POST);
+        lBDesc.materials.add(Material.WALL_SIGN);
+        lDesc.activate();
+   
         lDesc = lDetector.newDescription("Building.RedStoneSender");
         lDesc.typeName = "Building for sending redstone signals";
         lDesc.handler = lSRHandler;
