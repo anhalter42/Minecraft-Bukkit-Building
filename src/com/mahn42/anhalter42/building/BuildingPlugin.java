@@ -69,11 +69,11 @@ public class BuildingPlugin extends JavaPlugin {
 
         //lItemStack = new ItemStack(Material.SNOW_BLOCK, 6); //, (short)0, (byte)0);
         //lItemStack.setData(new MaterialData(Material.SNOW_BLOCK, (byte)3));
-        lItemStack = new ItemStack(Material.SNOW, 6, (short)0, (byte)3);
-        ShapedRecipe lHalfSnow = new ShapedRecipe(lItemStack);
-        lHalfSnow.shape("AAA");
-        lHalfSnow.setIngredient('A', new MaterialData(Material.SNOW_BLOCK, (byte)0));
-        getServer().addRecipe(lHalfSnow);
+        //lItemStack = new ItemStack(Material.SNOW, 6, (short)0, (byte)3);
+        //ShapedRecipe lHalfSnow = new ShapedRecipe(lItemStack);
+        //lHalfSnow.shape("AAA");
+        //lHalfSnow.setIngredient('A', new MaterialData(Material.SNOW_BLOCK, (byte)0));
+        //getServer().addRecipe(lHalfSnow);
         
         SimpleBuildingHandler lHandler = new SimpleBuildingHandler(this);
         SendReceiveHandler lSRHandler = new SendReceiveHandler(this);

@@ -9,7 +9,6 @@ import com.mahn42.framework.BlockRect;
 import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingEvent;
 import com.mahn42.framework.Framework;
-import com.mahn42.framework.SyncBlockList;
 import java.util.HashMap;
 import java.util.logging.Logger;
 import org.bukkit.Effect;
@@ -24,7 +23,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -156,6 +154,7 @@ public class BuildingListener implements Listener {
         }
     }
 
+    /*
     @EventHandler
     public void placeBlock(BlockPlaceEvent aEvent) {
         if (!aEvent.isCancelled()) {
@@ -172,4 +171,5 @@ public class BuildingListener implements Listener {
             }
         }
     }
+    */
 }
