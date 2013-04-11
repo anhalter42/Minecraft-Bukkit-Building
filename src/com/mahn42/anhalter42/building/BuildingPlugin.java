@@ -361,6 +361,7 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc.typeName = "Landmark";
         lDesc.circleRadius = 1;
         lDesc.visibleOnMap = false;
+        lDesc.position = BuildingDescription.Position.everywhere;
         lBDesc = lDesc.newBlockDescription("bottom");
         lBDesc.materials.add(Material.SMOOTH_BRICK, (byte)3);
         lBDesc.detectSensible = true;
@@ -380,6 +381,7 @@ public class BuildingPlugin extends JavaPlugin {
         lDesc.handler = lHandler;
         lDesc.typeName = "Portal";
         lDesc.iconName = "portal";
+        lDesc.position = BuildingDescription.Position.everywhere;
         lBDesc = lDesc.newBlockDescription("bottomleft");
         lBDesc.materials.add(Material.OBSIDIAN);
         lBDesc.detectSensible = true;
