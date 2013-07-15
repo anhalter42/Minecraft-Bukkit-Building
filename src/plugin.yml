@@ -2,7 +2,7 @@
 ---
 name: Building
 main: com.mahn42.anhalter42.building.BuildingPlugin
-version: 0.21
+version: 0.22
 softdepend: [dynmap]
 depend: [MAHN42-Framework]
 commands:
