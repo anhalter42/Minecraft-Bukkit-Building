@@ -68,25 +68,25 @@ public class BuildingListener implements Listener {
                 if (aEvent.getPlayer().isInsideVehicle()) {
                     Entity lVehicle = aEvent.getPlayer().getVehicle();
                     if (lVehicle instanceof Minecart) {
-                        ItemStack lItemInHand = aEvent.getPlayer().getItemInHand();
+                        ItemStack lItemInHand = aEvent.getPlayer().getInventory().getItemInMainHand(); // getItemInHand();
                         if (lItemInHand != null && lItemInHand.getType().equals(Material.BOAT)) {
                             BlockPosition lPos = lEventBuilding.getBlock("water2").position.clone();
                             lPos.add(0, 1, 0);
                             lVehicle.eject();
                             lVehicle.remove();
                             Entity lSpawnEntity = aEvent.getPlayer().getWorld().spawnEntity(lPos.getLocation(aEvent.getPlayer().getWorld()), EntityType.BOAT);
-                            lSpawnEntity.setPassenger(aEvent.getPlayer());
-                            aEvent.getPlayer().setItemInHand(new ItemStack(Material.MINECART));
+                            lSpawnEntity.addPassenger(aEvent.getPlayer());
+                            aEvent.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.MINECART)); // setItemInHand(new ItemStack(Material.MINECART));
                         }
                     } else if (lVehicle instanceof Boat) {
-                        ItemStack lItemInHand = aEvent.getPlayer().getItemInHand();
+                        ItemStack lItemInHand = aEvent.getPlayer().getInventory().getItemInMainHand(); // getItemInHand();
                         if (lItemInHand != null && lItemInHand.getType().equals(Material.MINECART)) {
                             BlockPosition lPos = lEventBuilding.getBlock("rails").position.clone();
                             lVehicle.eject();
                             lVehicle.remove();
                             Entity lSpawnEntity = aEvent.getPlayer().getWorld().spawnEntity(lPos.getLocation(aEvent.getPlayer().getWorld()), EntityType.MINECART);
-                            lSpawnEntity.setPassenger(aEvent.getPlayer());
-                            aEvent.getPlayer().setItemInHand(new ItemStack(Material.BOAT));
+                            lSpawnEntity.addPassenger(aEvent.getPlayer());
+                            aEvent.getPlayer().getInventory().setItemInMainHand(new ItemStack(Material.BOAT)); // setItemInHand(new ItemStack(Material.BOAT));
                         }
                     }
                 }
@@ -119,6 +119,15 @@ public class BuildingListener implements Listener {
         }
     }
 
+    protected boolean matchCreature(String sCreatureName, String[] aNames) {
+        for(String sName : aNames) {
+            if(sCreatureName.startsWith(sName.toUpperCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     @EventHandler
     public void creatureSpawn(CreatureSpawnEvent aEvent) {
         if (aEvent.getSpawnReason() != CreatureSpawnEvent.SpawnReason.CUSTOM
@@ -132,8 +141,8 @@ public class BuildingListener implements Listener {
                     EntityType lType = lEntity.getType();
                     String btype = lBuilding.description.name.substring(18);
                     String[] split = btype.split("\\.");
-                    btype = split[0].toUpperCase();
-                    if (btype.equals(lType.toString())) {
+                    //btype = split[0].toUpperCase(); if (lType.toString().startsWith(btype))
+                    if (matchCreature(lType.toString().toUpperCase(), split)) {
                         BlockPosition lPos = new BlockPosition(lEntity.getLocation());
                         BlockPosition lEdge1 = new BlockPosition(lBuilding.edge1);
                         BlockPosition lEdge2 = lEdge1.clone();
