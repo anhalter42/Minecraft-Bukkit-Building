@@ -21,9 +21,11 @@ import org.bukkit.entity.Boat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -102,9 +104,10 @@ public class BuildingListener implements Listener {
                         if (lWorldName != null && !lWorldName.isEmpty()) {
                             World lWorld = Framework.plugin.getServer().getWorld(lWorldName);
                             if (lWorld != null) {
-                                aEvent.getPlayer().getWorld().playEffect(aEvent.getPlayer().getLocation(), Effect.MOBSPAWNER_FLAMES, 10);
-                                aEvent.getPlayer().getWorld().playEffect(aEvent.getPlayer().getLocation(), Effect.BLAZE_SHOOT, 10);
-                                Framework.plugin.teleportPlayerToWorld(aEvent.getPlayer(), lWorld, lMark);
+                                Player lPlayer = aEvent.getPlayer();
+                                lPlayer.getWorld().playEffect(aEvent.getPlayer().getLocation(), Effect.MOBSPAWNER_FLAMES, 10);
+                                lPlayer.getWorld().playEffect(aEvent.getPlayer().getLocation(), Effect.BLAZE_SHOOT, 10);
+                                Framework.plugin.teleportPlayerToWorld(lPlayer, lWorld, lMark);
                             } else {
                                 aEvent.getPlayer().sendMessage("unkown world '" + lWorldName + "'!");
                             }
