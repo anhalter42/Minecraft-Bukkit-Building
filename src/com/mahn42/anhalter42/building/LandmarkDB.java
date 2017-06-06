@@ -45,7 +45,7 @@ public class LandmarkDB extends DBSetWorld<Landmark> {
                     lMark.name = lName;
                     String lMode = lLines[2];
                     MarkerAPI lMarkerAPI = BuildingPlugin.plugin.getDynmapTask().getMarkerAPI();
-                    MarkerIcon lIcon = lMarkerAPI.getMarkerIcon(lMode);
+                    MarkerIcon lIcon = (lMarkerAPI != null) ? lMarkerAPI.getMarkerIcon(lMode) : null;
                     if (lIcon != null) {
                         lMark.kind = Landmark.Kind.Icon;
                         lMark.iconName = lMode;
