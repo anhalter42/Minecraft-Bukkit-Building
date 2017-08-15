@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="Minecraft-Bukkit-Building:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Minecraft_Bukkit_Building_jar</output-path>
+    <root id="root">
+      <element id="archive" name="com.mahn42.anhalter42.building.jar">
+        <element id="module-output" name="Minecraft-Bukkit-Building" />
+      </element>
+    </root>
+  </artifact>
+</component>

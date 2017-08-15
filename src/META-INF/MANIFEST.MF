@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: dynmap-api.jar com.mahn42.framework.jar bukkit.jar
+Main-Class: com.mahn42.anhalter42.building.BuildingPlugin
+
