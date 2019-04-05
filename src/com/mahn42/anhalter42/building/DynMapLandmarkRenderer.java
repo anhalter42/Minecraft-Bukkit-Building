@@ -159,6 +159,8 @@ public class DynMapLandmarkRenderer implements Runnable {
                                 lLine.setLineStyle(lMark.lineWidth, 1.0, lColor);
                             }
                             break;
+                        case Detect:
+                            break;
                     }
                 }
             }
